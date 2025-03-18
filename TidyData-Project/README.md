@@ -1,6 +1,5 @@
 # Cannon-TidyData-Project
-This is an overview of my Tidy Data Project
-[Check it out](https://colab.research.google.com/drive/1vg-1z4fK8P9Nc35cPiy4zbgguCpPrF1a?usp=sharing)
+This is an overview of my [Tidy Data Project](https://colab.research.google.com/drive/1vg-1z4fK8P9Nc35cPiy4zbgguCpPrF1a?usp=sharing)
 
 ## Project Overview
 This Project is a chance to showcase my ability to clean and visualize data for the purpose of analysis. In this project I selected a dataset and reshaped the data so that:
