@@ -19,4 +19,5 @@ I used the dataset '2008 Olympic Medalists' which can be found [here](https://ed
 - [Tidy Data Principles](https://vita.had.co.nz/papers/tidy-data.pdf)
 
 ## Visual Examples
-
+![Medal Count](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/TidyData-Project/Medal%20Count.png)
+![Medals by Gender](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/TidyData-Project/Medal%20By%20Gender.png)
