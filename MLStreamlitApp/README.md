@@ -24,7 +24,5 @@ https://cannon-data-science-portfolio-wiyq5hjnzdzd8eqwjtkqqz.streamlit.app/
 5. Tune Hyperparameters
 6. Review Model Performance
 
-
-## References
-
 ## Visual Examples
+
