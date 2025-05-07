@@ -9,8 +9,9 @@ from sklearn.model_selection import train_test_split # type: ignore
 # From scikit-learn this import Label Encoder
 from sklearn.preprocessing import LabelEncoder # type: ignore
 # This imports the specific metric functions we want to use 
-# (accuracy_score, classification_report, roc_auc_score, and RocCurveDisplay) instead of the entire model
+# (accuracy_score, classification_report, roc_auc_score, confusion_matrix, and RocCurveDisplay instead of the entire model
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score, RocCurveDisplay # type: ignore
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 # This imports a specific model class - for Logisitic Regression
 from sklearn.linear_model import LogisticRegression # type: ignore
 # This imports a specific model class - for Decision Trees
@@ -52,6 +53,9 @@ else:
     st.warning("Please upload a dataset to continue.")
     st.stop()
 
+# Handle missing values
+df = df.dropna() 
+
 # This will give users a chance to preview their dataset and make sure they uploaded the correct one
 st.subheader("Preview Your Dataset")
 st.dataframe(df.head())
@@ -83,6 +87,10 @@ if not feature_cols:
 X = df[feature_cols]
 y = df[target_col]
 
+# Encode all categorical features
+for col in X.select_dtypes(include=['object']).columns:
+    X[col] = LabelEncoder().fit_transform(X[col])
+
 # This step makes sure that if the user selected target is categorical it will encode it into 
 # numbers for easier analysis
 if y.dtype == 'object':
@@ -110,32 +118,43 @@ model_name = st.sidebar.selectbox("Choose a model",
                                   ["Logistic Regression", "Decision Tree", "K-Nearest Neighbors"])
 
 # Depending on which model was chosen different hyperparameter selection sliders will appear
-st.subheader("Hyperparameters Explanations:")
-st.markdown("""
+with st.expander("See Hyperparameters Explanations:"):
+    st.markdown("""
             If you choose Logistic Regression you will be prompted to select the regularization strength (C).
             This factor helps make sure the model is not overfitted.
             """)
-st.markdown("""
-            If you choose Decision Tree you will be prompted to select the max depth of the Decision Tree model.
-            This controls the max depth or levels that the tree can grow to - it will help avoid overfitting.
+    st.markdown("""
+            If you choose Decision Tree you will be prompted to select the max depth and the minimum 
+            number of samples required to split for the Decision Tree model.
+            These factors control the max depth or levels that the tree can grow to - they will help avoid overfitting.
+            You will also be able to choose whether quality of the splits will be measured using 'gini' or 'entropy'.
             """)
-st.markdown("""
+    st.markdown("""
             If you choose K-Nearest Neighbors you will be prompted to select the number of neighbors (k) that are
             considered when predicting the target. This will help to avoid overfitting the model.
             """)
+
 # If Logistic Regression is chosen the app will prompt the user to select the regularization strength (C) - this helps make sure the model is not overfitted 
 if model_name == "Logistic Regression":
     # Creates a slider to set the regularization strength of the model
     C = st.sidebar.slider("Regularization Strength (C)", 0.01, 10.0, 1.0)
     # Creates the Logistic Regression model
     model = LogisticRegression(C=C, max_iter=1000)
-# If Decision Tree is chosen the app will prompt the user to select the max depth of the Decision Tree model
-# This controls the max depth the tree can grow to - can help the user avoid overfitting 
+
+# If Decision Tree is chosen the app will prompt the user to select:
+    # The max depth of the Decision Tree model (can help the user avoid overfitting)
+    # The min_samples_split of the Decision Tree model (higher values mean fewer splits, lower values mean more splits - controls overfitting)
+    # The criterion of the Decision Tree Model - used to measure quality of the split (options are Gini or Entropy)
 elif model_name == "Decision Tree":
     # Creates a sliding bar to choose the max depth of the Decision Tree
     max_depth = st.sidebar.slider("Max Tree Depth", 1, 20, 5)
+    # Creates a sliding bar to choose the minimum number of samples required to split an internal node
+    min_samples_split = st.sidebar.slider("Min Samples Split", 2, 10, 2)
+    # Creates a drop down menu to choose which criterion is used 
+    criterion = st.sidebar.selectbox("Criterion", ["gini", "entropy"])
     # Creates the Decision Tree model
-    model = DecisionTreeClassifier(max_depth=max_depth)
+    model = DecisionTreeClassifier(max_depth=max_depth, min_samples_split=min_samples_split, criterion=criterion)
+    
 # If K-Nearest Neighbors is chosen the app will prompt the user to choose the number of neighbors (k)
 # The number of neighbors (k) controls how many neighbors are considered when predicting the target - also helps to control with overfitting
 elif model_name == "K-Nearest Neighbors":
@@ -145,55 +164,31 @@ elif model_name == "K-Nearest Neighbors":
     model = KNeighborsClassifier(n_neighbors=k)
 
 
-# Train the model
-# This fits the model to the training data
+# Train and predict
 model.fit(X_train, y_train)
-# This predicts on the test data
 y_pred = model.predict(X_test)
 
+# Initialize y_prob for ROC AUC
+y_prob = None
+if hasattr(model, "predict_proba") and len(set(y_test)) == 2:
+    y_prob = model.predict_proba(X_test)[:, 1]
 
-# Model Performance Metrics 
+# Metrics
+with st.expander("See Performance Metric Explanations:"):
+    st.markdown("**Accuracy**: % of correct predictions.")
+    st.markdown("**Classification Report**: Shows precision, recall, and F1 score per class.")
+    st.markdown("**ROC AUC (binary only)**: How well the model separates two classes.")
 
-st.subheader("Model Performance Metrics")
+st.write("Accuracy:", round(accuracy_score(y_test, y_pred), 4))
 
-st.markdown("""
-            Accuracy: This shows the percentage of correct predictions made by the model
-            (generally a higher accuracy score is better)
-            """)
-st.markdown("""
-            Classification Report: This breaks down the performance for each class and shows 
-            the precision (how many selected items were relevant in creating the model), 
-            Recall (how many relevant items were selected), and F1-Score 
-            (which shows the balance between precision and recall)
-            """)
-st.markdown("""
-            ROC Curve (Only for binary problems): This visual shows how well the model distiguishes 
-            between two classes at different thresholds. In genral, the closer the curve is to the
-             top-left corner of the graph, the better the model is.
-            """)
-
-# This displays the accuracy score
-st.write("Accuracy: ", round(accuracy_score(y_test, y_pred), 4))
-
-# This displays the classification report (details explained in markdown comments)
 st.text("Classification Report:")
 st.text(classification_report(y_test, y_pred))
 
-# ROC Curve
-# This ensures that only binary models display an ROC curve - otherwise there would be an error message displayed
-if len(set(y)) == 2:
-    st.subheader("ROC Curve")
+st.write("Confusion Matrix:")
+disp = ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
+fig = disp.figure_
+st.pyplot(fig)
 
-    # This graph shows how well the model separates classes at different thresholds
-    try:
-        y_prob = model.predict_proba(X_test)[:,1]
-
-        roc_display = RocCurveDisplay.from_predictions(y_test, y_prob)
-        st.pyplot(plt.gcf())
-    # This error will display if the ROC curve is not able to be shown for the given model
-    except:
-        st.warning("ROC Curve is not supported for this model")
-
-
-
-
+# Show ROC AUC Score only for binary classification
+if y_prob is not None:
+    st.write("ROC AUC Score:", roc_auc_score(y_test, y_prob))
