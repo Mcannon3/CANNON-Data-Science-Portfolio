@@ -36,7 +36,21 @@ This project focuses on cleaning and reshaping data from the 2008 Olympic Medali
 Overall this project demonstrates my ability to clean and transform messy datasets into tidy formats, create meaningful visualizations, and clearly document my process. Check out my [Tidy Data Project](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/TidyData-Project)
 
 ## Supervised Machine Learning Streamlit App
-One of my projects in this portfolio is a **Supervised Machine Learning Streamlit App**. This project allows users to upload their own dataset, select and train a supervised machine learning model, experiment with hyperparameter tuning, and view model performance metrics. This project displays that I am proficient in developing supervised machine learning apps capable of taking in a dataset and outputting models to help with data analysis. Check out my [Supervised ML Project](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/MLStreamlitApp)
+This interactive Streamlit App allows users to upload their own dataset and apply supervised machine learning models to it. The app provides options for model selection, hyperparameter tuning, and performance evaluation.
+
+### Features
+- Allows users to upload CSV datasets
+- Offers model selection (Logistic Regression, Decision Tree, K-Nearest Neighbors)
+- Enables hyperparameter model tuning through interactive sidebars
+- Displays performance metrics such as accuracy, confusion matrix, and classification report
+
+### Project Highlights
+- Clearly commented and organized Python code using scikit-learn and Streamlit
+- README includes detailed instructions for usage and model explanations
+- Demonstrates my ability to build ML workflows which enable user interaction
+- Highlights my understanding of model evaluation and interpretability
+
+Overall this app demonstrates my skills in deploying supervised machine learning models and building user-friendly data applications. Check out my [Supervised ML Project](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/MLStreamlitApp)
 
 ## Organization
 
