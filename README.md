@@ -52,12 +52,19 @@ This interactive Streamlit App allows users to upload their own dataset and appl
 
 Overall this app demonstrates my skills in deploying supervised machine learning models and building user-friendly data applications. Check out my [Supervised ML Project](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/MLStreamlitApp)
 
-## Organization
+## Unsupervised Machine Learning Streamlit App
+This interactive Streamlit App enables users to explore clustering and dimensionality reduction techniques using their own uploaded datasets. It provides tools to apply K-Means Clustering, Hierarchical Clustering, and Principal Component Analysis (PCA). Users can also tune hyperparameters to see how they impact their models.
 
-- **EDA**: Exploratory Data Analysis Projects
-- **Visualizations**: Charts, dashboards, and other visuals
-- **Models**: Machine learning and predictive modeling projects
-- **Notebooks**: Jupyter notebooks
+### Features
+- Upload your own CSV dataset
+- Choose between K-Means, Hierarchical Clustering, or PCA
+- Interactively adjust model hyperparameters
+- Visualize results through scatter plots, dendrograms, and explained variance ratios
 
-## Future Plans
-- Future projects and descriptions
+### Project Highlights
+- Clean, well-commented python code using streamlit, scikit-learn, and visualization libraries
+- README provides clear instructions and explains each model option and hyperparameters
+- Demonstrates my ability to build a user-driven machine learning workflow without labeled data
+- Helps users better understand model behavior through visual diagnostics like elbow plots and silhouette scores
+
+Overall this app demonstrates my understanding of unsupervised learning concepts and ability to design interactive tools for data exploration. Check out my [Unsupervised ML Project](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/MLUnsupervisedApp)
