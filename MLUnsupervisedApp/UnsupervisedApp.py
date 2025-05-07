@@ -68,14 +68,14 @@ st.markdown("""
 model_choice = st.sidebar.selectbox("Choose Unsupervised Model", ["K-Means", "Hierarchical Clustering", "PCA"])
 
 # Depending on which model was chosen different hyperparameter selection sliders will appear
-st.subheader("Hyperparameters Explanations:")
-st.markdown("""
+with st.expander("See Hyperparameters Explanations:"):
+    st.markdown("""
             If you choose K-Means Clustering you will be prompted to select the number of clusters (k). This value 
             determines how many groups the algorithm should try to find in the data. Choosing too many or too few can make
             your model overfitted or underfitted. The elbow plot and silhouette score should help guide
             your ideal k value. 
             """)
-st.markdown("""
+    st.markdown("""
             If you choose Hierarchical Clustering you will be prompted to select a linkage method. This will determine how
             the distance betweeen clusters is calculated. 
             - Ward: This will minimize the variance within the clusters
@@ -83,7 +83,7 @@ st.markdown("""
             - Average: This will use the average distance between cluster points
             - Single: This will use the min distance between cluster points
             """)
-st.markdown("""
+    st.markdown("""
             If you choose Principal Component Analysis (PCA) you will be prompted to select the number of components. 
             This controls how many new dimensions or principal components that your data is reduced to. Reducing to
             fewer dimensions can make it easier to see patterns and interpret your data. However, reducing your dataset too much
