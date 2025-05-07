@@ -184,6 +184,17 @@ st.write("Accuracy:", round(accuracy_score(y_test, y_pred), 4))
 st.text("Classification Report:")
 st.text(classification_report(y_test, y_pred))
 
+# Explanation for the confusion matrix
+with st.expander ("See Confusion Matrix Explanation:"):
+    st.markdown("""  
+A confusion matrix shows how well your model performed in terms of actual vs. predicted values.  
+- **True Positives (TP):** Correctly predicted positive class  
+- **True Negatives (TN):** Correctly predicted negative class  
+- **False Positives (FP):** Incorrectly predicted positive class (Type I error)  
+- **False Negatives (FN):** Incorrectly predicted negative class (Type II error)  
+This helps understand the types of errors your model is making.
+""")
+
 st.write("Confusion Matrix:")
 disp = ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
 fig = disp.figure_
