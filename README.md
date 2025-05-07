@@ -14,7 +14,7 @@ My interactive Streamlit App is developed around the Palmer Penguins dataset, an
 - Accompanying README is informative and has clear usage instructions
 - Showcases my ability to develop an interactive Streamlit App
 
-Overall this app demonstrates my data exploration skills and Streamlit proficiency. 
+Overall this app demonstrates my data exploration skills and Streamlit proficiency. Check out my [Basic Streamlit App](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/basic_streamlit_app)
 
 
 ## Tidy Data Project - Olympic Medalists
