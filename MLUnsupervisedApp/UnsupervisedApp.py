@@ -57,8 +57,38 @@ st.dataframe(df.head())
 # This makes sure that we only select numerical columns for modeling because clustering and PCA both work with numeric data)
 numeric_df = df.select_dtypes(include=np.number)
 
+st.markdown("""
+            Now you will choose which unsupervised model you would like to use to explore your data.
+            Your options are K-Means Clustering, Hierarchical Clustering, or Principal Component
+            Analysis (PCA). You will also be able to tune the hyperparameters for each model to see how
+            they impact the outputted model.
+            """)
+
 # This gives the user the option to choose which unsupervised model to run - K-Means, Hierarchical Clustering, or PCA
 model_choice = st.sidebar.selectbox("Choose Unsupervised Model", ["K-Means", "Hierarchical Clustering", "PCA"])
+
+# Depending on which model was chosen different hyperparameter selection sliders will appear
+st.subheader("Hyperparameters Explanations:")
+st.markdown("""
+            If you choose K-Means Clustering you will be prompted to select the number of clusters (k). This value 
+            determines how many groups the algorithm should try to find in the data. Choosing too many or too few can make
+            your model overfitted or underfitted. The elbow plot and silhouette score should help guide
+            your ideal k value. 
+            """)
+st.markdown("""
+            If you choose Hierarchical Clustering you will be prompted to select a linkage method. This will determine how
+            the distance betweeen clusters is calculated. 
+            - Ward: This will minimize the variance within the clusters
+            - Complete: This will use the max distance between points in clusters
+            - Average: This will use the average distance between cluster points
+            - Single: This will use the min distance between cluster points
+            """)
+st.markdown("""
+            If you choose Principal Component Analysis (PCA) you will be prompted to select the number of components. 
+            This controls how many new dimensions or principal components that your data is reduced to. Reducing to
+            fewer dimensions can make it easier to see patterns and interpret your data. However, reducing your dataset too much
+            can result in missing important information.
+            """)
 
 # K-Means Clustering
 
@@ -112,7 +142,7 @@ elif model_choice == "Hierarchical Clustering":
     st.pyplot(fig)
 
     # Creates a scatter plot with hierarchical cluster labels
-    st.write("### Cluster Scatter Plot (First 2 Features)")
+    st.write("Cluster Scatter Plot (First 2 Features)")
     fig, ax = plt.subplots()
     sns.scatterplot(x=numeric_df.iloc[:, 0], y=numeric_df.iloc[:, 1], hue=labels, palette="tab10", ax=ax)
     st.pyplot(fig)
@@ -137,6 +167,6 @@ elif model_choice == "PCA":
     st.pyplot(fig)
 
     # This will display the explained variance for each component
-    st.write("### Explained Variance Ratio")
+    st.write("Explained Variance Ratio")
     st.write(pca.explained_variance_ratio_)
 

@@ -1,19 +1,44 @@
+# import necessary libraries
 import streamlit as st
 import pandas as pd
 
-st.title("Basic Streamlit App")
+# This displays the App title
+st.title("Penguin Data Explorer")
 
-st.write("This app displays sample data and allows you to filter it by species.")
+# This gives the user some background into what the app does
+st.write("This interactive app will load data from the Palmer Archipelago" \
+"penguins and allows you to filter by species and display informational statistics.")
 
+# This loads the dataset in from the github url and stores it as a dataframe
 url = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
 df = pd.read_csv(url)
 
-
-st.write("Sample of the data:")
+# This displays a preview of the dataset for the user
+st.subheader("Data Preview")
 st.dataframe(df.head())
 
-species = st.selectbox("Select species to filter by:", df['species'].unique())
-filtered_data = df[df['species'] == species]
+# This provides a sidebar filter 
+st.sidebar.header("Filter Options")
 
-st.write(f"Data filtered by {species}:")
-st.dataframe(filtered_data)
+# This creates the species filter
+species_list = df['species'].unique()
+selected_species = st.sidebar.multiselect("Select Species:", species_list, default=species_list)
+
+# This creates the sex filter
+sex_list = df['sex'].unique()
+selected_sex = st.sidebar.multiselect("Select Sex:", sex_list, default=sex_list)
+
+# This filters the dataset based on the user's selections
+filtered_df = df[
+    (df['species'].isin(selected_species)) &
+    (df['sex'].isin(selected_sex))
+]
+
+# This displays the filtered data for the user
+st.subheader(f"Filtered Data ({len(filtered_df)} records)")
+st.dataframe(filtered_df)
+
+# This shows the summary statistics for the user
+st.subheader("Summary Statistics")
+st.write(filtered_df.describe())
+
