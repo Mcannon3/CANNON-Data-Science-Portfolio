@@ -1,6 +1,9 @@
 # CANNON-Data-Science-Portfolio
 A portfolio showcasing my projects and skills in Data Science
 
+## At a Glance
+- Basic Streamlit App: [Basic Data Filtering App](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/tree/main/basic_streamlit_app)
+
 ## Basic Data Filtering Streamlit App - Penguin Data Explorer
 My interactive Streamlit App is developed around the Palmer Penguins dataset, and allows users to explore the data collected from penguin species in Antarctica.
 
