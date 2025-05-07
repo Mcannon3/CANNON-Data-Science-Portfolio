@@ -35,4 +35,4 @@ The Dataset Source can be found [here](https://raw.githubusercontent.com/mwaskom
 
 ## App Preview
 ![Image 1](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/basic_streamlit_app/App%20Picture%201.png)
-![Image 2]([https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/basic_streamlit_app/App%20Picture%201.png](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/basic_streamlit_app/App%20Picture%202.png))
+![Image 2](https://github.com/Mcannon3/CANNON-Data-Science-Portfolio/blob/main/basic_streamlit_app/App%20Picture%202.png)
